@@ -3,37 +3,50 @@ class Node():
         self.data = data
         self.next = None
 
+    def __str__(self) -> str:
+        return (str(self.data))
+
 class SinglyLinkedList():
     def __init__(self) -> None:
         self.head = None
-        
+
     def add_to(self, data):
-        """Add a new node to the end of the list."""
         new_node = Node(data)
-        if not self.head:  # If the list is empty
+        if not self.head:
             self.head = new_node
             return
-        # Traverse to the end of the list
         current = self.head
         while current.next:
+            print(current)
             current = current.next
-        current.next = new_node  # Add the new node at the end
-    
-    def to_list(self):
-        ls = []
+        current.next = new_node
+
+    def append_to_index(self, data, index):
+        if not self.head and index != 0:
+            return 
+        if not self.head and index == 0:
+            self.head = Node(data)
         current = self.head
-        while current:
-            ls.append(current.data)
+        new_node = Node(data)
+        for i in range(index - 1):
             current = current.next
-        return ls
+        
+        new_node.next = current.next
+        current.next = new_node
+
+
+    def add_to_start(self, data):
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
 
     def delete(self, data):
-        if not self.head:  # If the list is empty
+        if not self.head:
             return False
-        if self.head.data == data:
-            self.head = self.head.next
-            return True
         current = self.head
+        if current.data == data:
+            self.head = current.next
+            return True
         while current.next and current.next.data != data:
             current = current.next
         if current.next:
@@ -42,16 +55,28 @@ class SinglyLinkedList():
         return False
 
     def search(self, data):
-        if not self.head:  # If the list is empty
-            return False
         if self.head.data == data:
             return True
         current = self.head
-        while current.next and current.next.data != data:
+        while current.next:
             current = current.next
-        if current.next:
-            return True
+            if current.data == data:
+                return True
         return False
+        
+        
+
+    def to_list(self):
+        ls = []
+        if not self.head:
+            return ls
+        current = self.head
+        while current:
+            ls.append(current.data)
+            current = current.next
+        return ls
+
+
 
 if __name__ == "__main__":
     A = SinglyLinkedList()
@@ -59,5 +84,5 @@ if __name__ == "__main__":
     A.add_to(2)
     A.add_to(3)
     A.add_to(4)
-    print(A.search(3))
+    print(A.to_list())
 

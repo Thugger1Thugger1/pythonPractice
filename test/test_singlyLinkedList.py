@@ -10,6 +10,25 @@ def test_append():
 
     assert ll.to_list() == [1, 2, 3, 4]
 
+def test_append_to_start():
+    ll = SinglyLinkedList()
+    ll.add_to_start(1)
+    ll.add_to_start(2)
+    ll.add_to_start(3)
+    ll.add_to_start(4)
+
+    assert ll.to_list() == [4, 3, 2, 1]
+
+def test_append_to_index():
+    ll = SinglyLinkedList()
+    ll.add_to_start(1)
+    ll.add_to_start(2)
+    ll.add_to_start(3)
+    ll.add_to_start(4)
+    ll.append_to_index(6, 2)
+
+    assert ll.to_list() == [4, 3, 6, 2, 1]
+
 def test_delete_existing():
     ll = SinglyLinkedList()
     ll.add_to(1)
