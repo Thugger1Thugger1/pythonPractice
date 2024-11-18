@@ -10,7 +10,7 @@ def test_addToBack():
 
     assert ll.toList() == [1, 2, 3, 4]
 
-def test_addToStart():
+def test_addToFront():
     ll = SinglyLinkedList()
     ll.addToFront(1)
     ll.addToFront(2)
