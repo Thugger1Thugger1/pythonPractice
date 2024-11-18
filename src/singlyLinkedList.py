@@ -1,88 +1,88 @@
 class Node():
-    def __init__(self, data) -> None:
-        self.data = data
+    def __init__(self, item) -> None:
+        self.item = item
         self.next = None
-
-    def __str__(self) -> str:
-        return (str(self.data))
 
 class SinglyLinkedList():
     def __init__(self) -> None:
         self.head = None
 
-    def add_to(self, data):
-        new_node = Node(data)
-        if not self.head:
-            self.head = new_node
-            return
-        current = self.head
-        while current.next:
-            print(current)
-            current = current.next
-        current.next = new_node
-
-    def append_to_index(self, data, index):
-        if not self.head and index != 0:
-            return 
-        if not self.head and index == 0:
-            self.head = Node(data)
-        current = self.head
-        new_node = Node(data)
-        for i in range(index - 1):
-            current = current.next
-        
-        new_node.next = current.next
-        current.next = new_node
-
-
-    def add_to_start(self, data):
-        new_node = Node(data)
+    def addToFront(self, item):
+        new_node = Node(item)
         new_node.next = self.head
         self.head = new_node
+    
 
-    def delete(self, data):
+    def addToBack(self, item):
+        newNode = Node(item)
+        currentNode = self.head
+        if not self.head:
+            self.head = newNode
+            return
+        while currentNode.next:
+            currentNode = currentNode.next
+        currentNode.next = newNode
+
+    def addToIndex(self, item, index):
+        if not self.head and index == 0:
+            self.head = Node(item)
+            return
+        if not self.head and index != 0:
+            return 
+        newNode = Node(item)
+        currentNode = self.head
+        for i in range (index - 1):
+            if currentNode.next:
+                currentNode = currentNode.next
+                print(currentNode.item)
+            else:
+                print("out of bounds")
+                return
+        newNode.next = currentNode.next
+        currentNode.next = newNode
+        
+    def delete(self, item):
         if not self.head:
             return False
-        current = self.head
-        if current.data == data:
-            self.head = current.next
+        if self.head.item == item:
+            self.head = self.head.next
             return True
-        while current.next and current.next.data != data:
-            current = current.next
-        if current.next:
-            current.next = current.next.next
+        currentNode = self.head
+        while currentNode.next and currentNode.next.item != item:
+            currentNode = currentNode.next
+        if currentNode.next:
+            currentNode.next = currentNode.next.next
             return True
         return False
 
-    def search(self, data):
-        if self.head.data == data:
-            return True
-        current = self.head
-        while current.next:
-            current = current.next
-            if current.data == data:
+    def search(self, item):
+        if not self.head:
+            return False
+        currentNode = self.head
+        while currentNode:
+            if currentNode.item == item:
                 return True
+            currentNode = currentNode.next
         return False
-        
-        
 
-    def to_list(self):
+
+
+
+    def toList(self):
         ls = []
         if not self.head:
             return ls
-        current = self.head
-        while current:
-            ls.append(current.data)
-            current = current.next
+        currentNode = self.head
+        while currentNode:
+            ls.append(currentNode.item)
+            currentNode = currentNode.next
         return ls
-
-
-
+        
 if __name__ == "__main__":
     A = SinglyLinkedList()
-    A.add_to(1)
-    A.add_to(2)
-    A.add_to(3)
-    A.add_to(4)
-    print(A.to_list())
-
+    A.addToBack(1)
+    A.addToBack(2)
+    A.addToBack(3)
+    A.addToBack(4)
+    A.addToIndex(10, 5)
+    print(A.toList())
