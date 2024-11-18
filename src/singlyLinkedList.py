@@ -8,81 +8,74 @@ class SinglyLinkedList():
         self.head = None
 
     def addToFront(self, item):
-        new_node = Node(item)
-        new_node.next = self.head
-        self.head = new_node
-    
+        newNode = Node(item)
+        newNode.next = self.head
+        self.head = newNode
+
+    def toList(self):
+        ls = []
+        current = self.head
+        while current:
+            ls.append(current.item)
+            current = current.next
+        return ls
 
     def addToBack(self, item):
-        newNode = Node(item)
-        currentNode = self.head
         if not self.head:
-            self.head = newNode
-            return
-        while currentNode.next:
-            currentNode = currentNode.next
-        currentNode.next = newNode
-
-    def addToIndex(self, item, index):
-        if not self.head and index == 0:
             self.head = Node(item)
             return
-        if not self.head and index != 0:
-            return 
         newNode = Node(item)
-        currentNode = self.head
-        for i in range (index - 1):
-            if currentNode.next:
-                currentNode = currentNode.next
-                print(currentNode.item)
-            else:
-                print("out of bounds")
-                return
-        newNode.next = currentNode.next
-        currentNode.next = newNode
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = newNode
         
     def delete(self, item):
+        current = self.head
         if not self.head:
             return False
-        if self.head.item == item:
-            self.head = self.head.next
+        if current.item == item:
+            self.head = current.next
             return True
-        currentNode = self.head
-        while currentNode.next and currentNode.next.item != item:
-            currentNode = currentNode.next
-        if currentNode.next:
-            currentNode.next = currentNode.next.next
+        
+        while current.next and current.next.item != item:
+            current = current.next
+        if current.next:
+            current.next = current.next.next
             return True
         return False
 
     def search(self, item):
-        if not self.head:
+        current = self.head
+        if not current:
             return False
-        currentNode = self.head
-        while currentNode:
-            if currentNode.item == item:
+        while current:
+            if current.item == item:
                 return True
-            currentNode = currentNode.next
+            current = current.next
+            
         return False
 
-
-
-
-    def toList(self):
-        ls = []
-        if not self.head:
-            return ls
-        currentNode = self.head
-        while currentNode:
-            ls.append(currentNode.item)
-            currentNode = currentNode.next
-        return ls
+    def addToIndex(self, item, index):
+        current = self.head
+        newNode = Node(item)
+        if not current:
+            return
+        if current.item == item and not current.next:
+            newNode.next = self.head
+            self.head = newNode
+        for i in range(index - 1):
+            current = current.next
+        newNode.next = current.next
+        current.next = newNode
         
+
+
 if __name__ == "__main__":
     A = SinglyLinkedList()
     A.addToBack(1)
     A.addToBack(2)
     A.addToBack(3)
     A.addToBack(4)
-    A.addToIndex(10, 5)
+    print(A.delete(1))
     print(A.toList())
