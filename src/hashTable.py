@@ -32,6 +32,7 @@ class HashTable:
             self.table[index] = newNode
             self.size += 1
 
+
     def __str__(self) -> str:
         ret = []
         for i in range(self.capacity):
@@ -51,6 +52,33 @@ class HashTable:
             current = current.next
         return "not in table"
 
+    def remove(self, key):
+        index = self._hash(key)
+        current = self.table[index]
+        if not current:
+            return False
+
+        if not current.next and current.key == key:
+            self.table[index] = None
+            self.size -= 1
+            return True
+        while current.next:
+            if current.next.key == key:
+                current.next = current.next.next
+                self.size -= 1
+                return True
+            current = current.next
+        return False
+
+    def len(self):
+        return self.size
+
+    def __contains__(self, key):
+        try:
+            self.search(key)
+            return True
+        except KeyError:
+            return False
 
 
 
@@ -60,5 +88,4 @@ if __name__ == "__main__":
     table.insert('bruh', 10)
     table.insert('erm', 30)
     table.insert('spruce', 20)
-    table.search('erm')
-    print(table)
+    print(str(table))
