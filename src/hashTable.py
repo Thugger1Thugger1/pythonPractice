@@ -61,7 +61,17 @@ class HashTable:
                 return current.value
             current = current.next
         return False 
-         
+
+    def toList(self) -> str:
+        ret = []
+        for i in range(len(self.table)):
+            current = self.table[i]
+            while current:
+                ret.append((current.key, current.value))
+                current = current.next
+        return ret
+
+             
 
 
 if __name__ == "__main__":

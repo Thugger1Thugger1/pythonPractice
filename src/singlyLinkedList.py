@@ -56,8 +56,8 @@ class SinglyLinkedList:
         return False
 
     def addToIndex(self, item, index):
-        if not self.head and index != 0:
-            return 
+        # if not self.head and index != 0:
+        #     return 
         newNode = Node(item)
         if index == 0:
             newNode.next = self.head
@@ -85,5 +85,5 @@ if __name__ == "__main__":
     A.addToBack(2)
     A.addToBack(3)
     A.addToBack(4)
-    A.addToIndex(5, 5)
+    A.addToIndex(5, 2)
     print(A.toList())
